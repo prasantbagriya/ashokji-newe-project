@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "Batch": {
+      "title": "Batch",
+      "description": "Master batch of raw material",
+      "type": "object",
+      "properties": {
+        "batchNo": { "type": "string" },
+        "materialType": { "type": "string" },
+        "receivedDate": { "type": "string", "format": "date-time" }
+      },
+      "required": ["batchNo"]
+    },
+    "BandSawEntry": {
+      "title": "Band Saw Entry",
+      "description": "Record of material cut in the band saw process",
+      "type": "object",
+      "properties": {
+        "masterBatchNo": { "type": "string" },
+        "subBundleNo": { "type": "string" },
+        "cutLength": { "type": "number" },
+        "pcsCut": { "type": "number" },
+        "weight": { "type": "number" },
+        "endCutWeight": { "type": "number" },
+        "date": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["cut", "centered", "charging", "hrm", "hrm-hot-out", "finished"] }
+      },
+      "required": ["masterBatchNo", "subBundleNo", "pcsCut", "weight"]
+    },
+    "InspectionRecord": {
+      "title": "Inspection Record",
+      "description": "Detailed inspection for each piece in a bundle",
+      "type": "object",
+      "properties": {
+        "bundleId": { "type": "string" },
+        "pcsNo": { "type": "number" },
+        "od": { "type": "number" },
+        "thickness": { "type": "number" },
+        "length": { "type": "number" },
+        "surface": { "type": "string" },
+        "remarks": { "type": "string" }
+      }
+    },
+    "ProductionReport": {
+      "title": "Production Report",
+      "description": "Daily production and costing data",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "shift": { "type": "string" },
+        "productionKg": { "type": "number" },
+        "waterTankers": { "type": "number" },
+        "lpgKg": { "type": "number" },
+        "electricityUnits": { "type": "number" },
+        "mandrill59": { "type": "number" },
+        "mandrill51": { "type": "number" },
+        "guide76": { "type": "number" },
+        "mandrill63": { "type": "number" },
+        "guide90": { "type": "number" },
+        "guide66": { "type": "number" },
+        "mandrill42": { "type": "number" },
+        "guide50": { "type": "number" }
+      }
+    }
+  },
+  "firestore": {
+    "/batches": { "schema": "Batch", "description": "Master batches" },
+    "/bandSawEntries": { "schema": "BandSawEntry", "description": "Band saw cutting records" },
+    "/inspections": { "schema": "InspectionRecord", "description": "Piece-by-piece inspection data" },
+    "/productionReports": { "schema": "ProductionReport", "description": "Daily production reports" }
+  }
+}
